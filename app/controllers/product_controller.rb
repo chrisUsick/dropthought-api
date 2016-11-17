@@ -11,4 +11,15 @@ class ProductController < ApplicationController
     p
     render json: Product.all
   end
+
+  def search
+    keywords = params['keywords']
+    products = Product.where 'name LIKE :keywords OR description LIKE :keywords', keywords: keywords
+    tags = products.map {|p| p.tags}.flatten
+
+    render json: {
+      products: products,
+      tags: tags
+    }
+  end
 end
