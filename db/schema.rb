@@ -10,66 +10,67 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117132319) do
-
-  create_table "customizations", force: :cascade do |t|
-    t.string   "name"
-    t.string   "description"
-    t.decimal  "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "product_id"
-    t.index ["product_id"], name: "index_customizations_on_product_id"
+ActiveRecord::Schema.define(version: 20_161_118_034_405) do
+  create_table 'customizations', force: :cascade do |t|
+    t.string   'name'
+    t.string   'description'
+    t.decimal  'price'
+    t.datetime 'created_at',  null: false
+    t.datetime 'updated_at',  null: false
+    t.integer  'product_id'
+    t.index ['product_id'], name: 'index_customizations_on_product_id'
   end
 
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.decimal  "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "image"
+  create_table 'products', force: :cascade do |t|
+    t.string   'name'
+    t.text     'description'
+    t.decimal  'price'
+    t.datetime 'created_at',  null: false
+    t.datetime 'updated_at',  null: false
+    t.string   'image'
   end
 
-  create_table "products_tags", id: false, force: :cascade do |t|
-    t.integer "product_id"
-    t.integer "tag_id"
-    t.index ["product_id"], name: "index_products_tags_on_product_id"
-    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
+  create_table 'products_tags', id: false, force: :cascade do |t|
+    t.integer 'product_id'
+    t.integer 'tag_id'
+    t.index ['product_id'], name: 'index_products_tags_on_product_id'
+    t.index ['tag_id'], name: 'index_products_tags_on_tag_id'
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table 'tags', force: :cascade do |t|
+    t.string   'name'
+    t.datetime 'created_at', null: false
+    t.datetime 'updated_at', null: false
+    t.string   'slug'
   end
 
-  create_table "users", force: :cascade do |t|
-    t.string   "provider",               default: "email", null: false
-    t.string   "uid",                    default: "",      null: false
-    t.string   "encrypted_password",     default: "",      null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,       null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.string   "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
-    t.string   "name"
-    t.string   "nickname"
-    t.string   "image"
-    t.string   "email"
-    t.text     "tokens"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+  create_table 'users', force: :cascade do |t|
+    t.string   'provider',               default: 'email', null: false
+    t.string   'uid',                    default: '',      null: false
+    t.string   'encrypted_password',     default: '',      null: false
+    t.string   'reset_password_token'
+    t.datetime 'reset_password_sent_at'
+    t.datetime 'remember_created_at'
+    t.integer  'sign_in_count', default: 0, null: false
+    t.datetime 'current_sign_in_at'
+    t.datetime 'last_sign_in_at'
+    t.string   'current_sign_in_ip'
+    t.string   'last_sign_in_ip'
+    t.string   'confirmation_token'
+    t.datetime 'confirmed_at'
+    t.datetime 'confirmation_sent_at'
+    t.string   'unconfirmed_email'
+    t.string   'name'
+    t.string   'nickname'
+    t.string   'image'
+    t.string   'email'
+    t.text     'tokens'
+    t.datetime 'created_at',                               null: false
+    t.datetime 'updated_at',                               null: false
+    t.index ['email'], name: 'index_users_on_email'
+    t.index ['reset_password_token'],
+            name: 'index_users_on_reset_password_token',
+            unique: true
+    t.index %w(uid provider), name: 'index_users_on_uid_and_provider', unique: true
   end
-
 end

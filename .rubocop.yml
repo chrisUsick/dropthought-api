@@ -1,0 +1,21 @@
+AllCops:
+  Exclude:
+    - 'db/migrate/*'
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/test_helper.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'db/schema.rb'
+
+
+Metrics/LineLength:
+  Max: 90
+  AllowHeredoc: true
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 14

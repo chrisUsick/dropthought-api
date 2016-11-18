@@ -1,11 +1,25 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  description: MyText
-  price: 9.99
+a:
+  name: Tiny House on wheels
+  description: A home mounted on a 15' trailer.
+  price: 99.99
+  tags:
+    - home_designs
 
-two:
-  name: MyString
-  description: MyText
+b:
+  name: Shipping container home
+  description: A house made from shipping containers
   price: 9.99
+  tags:
+    - home_designs
+c:
+  name: Offroad gokart
+  description: a simple gokart design with a wide wheel-base and 15" clearance
+  price: 56.23
+  tags:
+    - vehicles
+d:
+  name: Gokart from lawnmower moter
+  description: A gokart made with a lawnmower moter
+  price: 195.23
