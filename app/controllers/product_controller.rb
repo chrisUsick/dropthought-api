@@ -1,5 +1,5 @@
 class ProductController < ApplicationController
-  # before_action :set_user_by_token
+  # before_action :authenticate_user!
   def index
     # access_token = request.headers['access-token']
     # client = request.headers['client']
