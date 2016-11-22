@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     post '/auth/google' => 'google_token_auth#auth'
     get '/products' => 'product#index'
     get '/products/search' => 'product#search'
+    get '/products/:id' => 'product#show'
+    post '/products/:id' => 'product#update'
+    post '/products' => 'product#create'
+    get '/users/current/all' => 'user#all'
   end
 
   get '/test' => 'google_token_auth#test'

@@ -18,4 +18,6 @@ class User < ActiveRecord::Base
 
     user
   end
+
+  has_many :products
 end

@@ -1,5 +1,10 @@
 # rubocop:disable Style/IndentArray
-products = Product.create([
+user = User.create({
+  provider: 'google_oauth2',
+  uid: '114200677379683396895',
+  password: 'passw000rd'
+  })
+products = user.products.create([
     {
       name: 'Tiny Home on Wheels',
       description: "A house mounted on a 15' trailer.",
@@ -22,7 +27,6 @@ products = Product.create([
       image: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=300&h=150'
     }
 ])
-
 house_tag = products[0].tags.create(name: 'House', slug: 'house')
 house_tag.products << products[1]
 
