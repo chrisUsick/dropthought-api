@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161121164718) do
+ActiveRecord::Schema.define(version: 20161123190855) do
 
   create_table "customizations", force: :cascade do |t|
     t.string   "name"
@@ -20,6 +20,17 @@ ActiveRecord::Schema.define(version: 20161121164718) do
     t.datetime "updated_at",  null: false
     t.integer  "product_id"
     t.index ["product_id"], name: "index_customizations_on_product_id"
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string   "name"
+    t.text     "description"
+    t.decimal  "price"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.string   "image"
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_products_on_user_id"
   end
 
   create_table "products_tags", id: false, force: :cascade do |t|
@@ -64,16 +75,11 @@ ActiveRecord::Schema.define(version: 20161121164718) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
-
-  create_table "products", force: :cascade do |t|
-    t.string   "name"
-    t.text     "description"
-    t.decimal  "price"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.string   "image"
-    t.integer 'user_id'
-    t.index ["user_id"], name: "index_products_on_user_id"
+  create_table "user_wishlist_product", id: false, force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "product_id"
+    t.index ["product_id"], name: "index_user_wishlist_product_on_products_id"
+    t.index ["user_id"], name: "index_user_wishlist_product_on_users_id"
   end
 
 end
