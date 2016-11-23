@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     delete '/products/:id' => 'product#delete'
     post '/products' => 'product#create'
     get '/users/current/all' => 'user#all'
+    post '/users/current/wishlist' => 'user#add_to_wishlist'
+    get '/users/current/wishlist' => 'user#show_wishlist'
   end
 
   get '/test' => 'google_token_auth#test'

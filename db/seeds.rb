@@ -4,6 +4,7 @@ user = User.create({
   uid: '114200677379683396895',
   password: 'passw000rd'
   })
+
 products = user.products.create([
     {
       name: 'Tiny Home on Wheels',
@@ -36,3 +37,8 @@ gokart_tag.products << products[3]
 products[0].customizations.create(
   name: 'Skylight', description: 'Add a skylight over the bed.', price: 25.00
 )
+
+user.wishlist_products
+products[0].wishers << user
+# user.save
+products[0].save
