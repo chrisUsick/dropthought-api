@@ -17,7 +17,7 @@ class UserController < ApplicationController
   end
 
   def show_wishlist
-    render json: current_user.wishlist_products
+    render json: current_user.wishlist_products.includes(:customizations).as_json(include: :customizations)
   end
   private
   def wishlist_params
