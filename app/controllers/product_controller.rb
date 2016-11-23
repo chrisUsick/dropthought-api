@@ -48,6 +48,11 @@ class ProductController < ApplicationController
 
   end
 
+  def delete
+    id = params[:id]
+    Product.find(id).delete
+  end
+
   private
 
   def product_params

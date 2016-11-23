@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get '/products/search' => 'product#search'
     get '/products/:id' => 'product#show'
     post '/products/:id' => 'product#update'
+    delete '/products/:id' => 'product#delete'
     post '/products' => 'product#create'
     get '/users/current/all' => 'user#all'
   end
