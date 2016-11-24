@@ -23,4 +23,5 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :wishlist_products,
     class_name: 'Product',
     join_table: 'user_wishlist_product'
+  has_many :orders
 end
