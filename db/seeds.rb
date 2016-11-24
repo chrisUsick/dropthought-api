@@ -38,7 +38,23 @@ products[0].customizations.create(
   name: 'Skylight', description: 'Add a skylight over the bed.', price: 25.00
 )
 
-user.wishlist_products
 products[0].wishers << user
-# user.save
 products[0].save
+
+user.orders.create([
+  {
+    product_id: products[2].id,
+    status: :new,
+    price: 99.98
+  }])
+
+order = user.orders.create({
+  product_id: products[0].id,
+  status: :complete,
+  price: 80.99
+})
+
+order.customization_prices.create({
+  customization_id: products[0].customizations.first.id,
+  price: 22.10
+})
