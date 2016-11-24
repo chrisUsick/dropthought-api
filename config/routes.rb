@@ -13,6 +13,9 @@ Rails.application.routes.draw do
     get '/users/current/all' => 'user#all'
     post '/users/current/wishlist' => 'user#add_to_wishlist'
     get '/users/current/wishlist' => 'user#show_wishlist'
+    get '/users/current/orders' => 'user#show_orders'
+
+    post '/orders' => 'orders#create'
   end
 
   get '/test' => 'google_token_auth#test'

@@ -43,15 +43,18 @@ products[0].save
 
 user.orders.create([
   {
-    product: products[2],
+    product_id: products[2].id,
     status: :new,
     price: 99.98
-  },{
-    product: products[0],
-    customization_prices: {
-      customization: products[0].customizations.first,
-      price: 22.10
-    },
-    price: 80.99
-  }
-])
+  }])
+
+order = user.orders.create({
+  product_id: products[0].id,
+  status: :complete,
+  price: 80.99
+})
+
+order.customization_prices.create({
+  customization_id: products[0].customizations.first.id,
+  price: 22.10
+})
