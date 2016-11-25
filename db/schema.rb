@@ -12,14 +12,17 @@
 
 ActiveRecord::Schema.define(version: 20161124161258) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "customization_prices", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "customization_id"
     t.decimal  "price"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
-    t.index ["customization_id"], name: "index_customization_prices_on_customization_id"
-    t.index ["order_id"], name: "index_customization_prices_on_order_id"
+    t.index ["customization_id"], name: "index_customization_prices_on_customization_id", using: :btree
+    t.index ["order_id"], name: "index_customization_prices_on_order_id", using: :btree
   end
 
   create_table "customizations", force: :cascade do |t|
@@ -28,8 +31,8 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.decimal  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "product_id"
-    t.index ["product_id"], name: "index_customizations_on_product_id"
+    t.integer  "products_id"
+    t.index ["products_id"], name: "index_customizations_on_products_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
@@ -39,8 +42,8 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "user_id"
-    t.index ["product_id"], name: "index_orders_on_product_id"
-    t.index ["user_id"], name: "index_orders_on_user_id"
+    t.index ["product_id"], name: "index_orders_on_product_id", using: :btree
+    t.index ["user_id"], name: "index_orders_on_user_id", using: :btree
   end
 
   create_table "products", force: :cascade do |t|
@@ -50,15 +53,15 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "image"
-    t.integer  "user_id"
-    t.index ["user_id"], name: "index_products_on_user_id"
+    t.integer  "users_id"
+    t.index ["users_id"], name: "index_products_on_users_id", using: :btree
   end
 
   create_table "products_tags", id: false, force: :cascade do |t|
     t.integer "product_id"
     t.integer "tag_id"
-    t.index ["product_id"], name: "index_products_tags_on_product_id"
-    t.index ["tag_id"], name: "index_products_tags_on_tag_id"
+    t.index ["product_id"], name: "index_products_tags_on_product_id", using: :btree
+    t.index ["tag_id"], name: "index_products_tags_on_tag_id", using: :btree
   end
 
   create_table "tags", force: :cascade do |t|
@@ -69,10 +72,10 @@ ActiveRecord::Schema.define(version: 20161124161258) do
   end
 
   create_table "user_wishlist_product", id: false, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "product_id"
-    t.index ["product_id"], name: "index_user_wishlist_product_on_products_id"
-    t.index ["user_id"], name: "index_user_wishlist_product_on_users_id"
+    t.integer "users_id"
+    t.integer "products_id"
+    t.index ["products_id"], name: "index_user_wishlist_product_on_products_id", using: :btree
+    t.index ["users_id"], name: "index_user_wishlist_product_on_users_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -98,9 +101,12 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.text     "tokens"
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
-    t.index ["email"], name: "index_users_on_email"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
+    t.index ["email"], name: "index_users_on_email", using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+    t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
+  add_foreign_key "customizations", "products", column: "products_id"
+  add_foreign_key "orders", "users"
+  add_foreign_key "products", "users", column: "users_id"
 end
