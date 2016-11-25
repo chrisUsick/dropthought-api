@@ -6,22 +6,19 @@ class OrdersController < ApplicationController
     if current_user.wishlist_products.exists?(product.id)
       current_user.wishlist_products.delete(product)
     end
-    order = current_user.orders.create({
-      product_id: product.id,
-      price: product.price,
-      status: :new
-    })
+    order = current_user.orders.create(product_id: product.id,
+                                       price: product.price,
+                                       status: :new)
     customization_prices = []
     customization_prices_params[:customizations].each do |c|
-      if c['selected']
-        customization_prices << ({
-          customization_id: c['id'],
-          price: c['price']
-        })
-      end
+      next unless c['selected']
+      customization_prices << ({
+        customization_id: c['id'],
+        price: c['price']
+      })
     end
     order.customization_prices.create(customization_prices)
-    render status:200
+    render status: 200
   end
 
   private
@@ -33,5 +30,4 @@ class OrdersController < ApplicationController
   def customization_prices_params
     params.permit(customizations: [:selected, :id, :price])
   end
-
 end

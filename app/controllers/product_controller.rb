@@ -45,7 +45,6 @@ class ProductController < ApplicationController
     else
       render status: 400
     end
-
   end
 
   def delete

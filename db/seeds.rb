@@ -1,9 +1,7 @@
 # rubocop:disable Style/IndentArray
-user = User.create({
-  provider: 'google_oauth2',
-  uid: '114200677379683396895',
-  password: 'passw000rd'
-  })
+user = User.create(provider: 'google_oauth2',
+                   uid: '114200677379683396895',
+                   password: 'passw000rd')
 
 products = user.products.create([
     {
@@ -46,15 +44,12 @@ user.orders.create([
     product_id: products[2].id,
     status: :new,
     price: 99.98
-  }])
+  }
+])
 
-order = user.orders.create({
-  product_id: products[0].id,
-  status: :complete,
-  price: 80.99
-})
+order = user.orders.create(product_id: products[0].id,
+                           status: :complete,
+                           price: 80.99)
 
-order.customization_prices.create({
-  customization_id: products[0].customizations.first.id,
-  price: 22.10
-})
+order.customization_prices.create(customization_id: products[0].customizations.first.id,
+                                  price: 22.10)

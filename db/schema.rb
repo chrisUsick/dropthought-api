@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.decimal  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.integer  "products_id"
-    t.index ["products_id"], name: "index_customizations_on_products_id", using: :btree
+    t.integer  "product_id"
+    t.index ["product_id"], name: "index_customizations_on_product_id", using: :btree
   end
 
   create_table "orders", force: :cascade do |t|
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "image"
-    t.integer  "users_id"
-    t.index ["users_id"], name: "index_products_on_users_id", using: :btree
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_products_on_user_id", using: :btree
   end
 
   create_table "products_tags", id: false, force: :cascade do |t|
@@ -72,10 +72,10 @@ ActiveRecord::Schema.define(version: 20161124161258) do
   end
 
   create_table "user_wishlist_product", id: false, force: :cascade do |t|
-    t.integer "users_id"
-    t.integer "products_id"
-    t.index ["products_id"], name: "index_user_wishlist_product_on_products_id", using: :btree
-    t.index ["users_id"], name: "index_user_wishlist_product_on_users_id", using: :btree
+    t.integer "user_id"
+    t.integer "product_id"
+    t.index ["product_id"], name: "index_user_wishlist_product_on_product_id", using: :btree
+    t.index ["user_id"], name: "index_user_wishlist_product_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|
@@ -106,7 +106,7 @@ ActiveRecord::Schema.define(version: 20161124161258) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true, using: :btree
   end
 
-  add_foreign_key "customizations", "products", column: "products_id"
+  add_foreign_key "customizations", "products"
   add_foreign_key "orders", "users"
-  add_foreign_key "products", "users", column: "users_id"
+  add_foreign_key "products", "users"
 end

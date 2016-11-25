@@ -5,7 +5,7 @@ class UserController < ApplicationController
     current_user.products.all
     render json: {
       user: current_user,
-      products: current_user.products,
+      products: current_user.products
     }
   end
 
@@ -17,7 +17,10 @@ class UserController < ApplicationController
   end
 
   def show_wishlist
-    render json: current_user.wishlist_products.includes(:customizations).as_json(include: :customizations)
+    render json: current_user
+      .wishlist_products
+      .includes(:customizations)
+      .as_json(include: :customizations)
   end
 
   def show_orders
@@ -25,7 +28,9 @@ class UserController < ApplicationController
       .includes([:customization_prices, :product])
       .as_json(include: [:customization_prices, :product])
   end
+
   private
+
   def wishlist_params
     params.require(:product).permit(:id)
   end

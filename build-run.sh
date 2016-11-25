@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /bin/sh
 cd /myapp
 bundle exec rails db:create
 bundle exec rails db:migrate
