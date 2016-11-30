@@ -5,7 +5,8 @@ class UserController < ApplicationController
     current_user.products.all
     render json: {
       user: current_user,
-      products: current_user.products
+      products: current_user.products,
+      orders: current_user.orders_to_fulfil.as_json(include: :product)
     }
   end
 

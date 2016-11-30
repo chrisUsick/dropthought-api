@@ -24,4 +24,8 @@ class User < ActiveRecord::Base
                           class_name: 'Product',
                           join_table: 'user_wishlist_product'
   has_many :orders
+  has_many :orders_to_fulfil,
+           class_name: 'Order',
+           foreign_key: 'fulfiller_id'
+
 end

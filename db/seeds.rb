@@ -43,7 +43,8 @@ user.orders.create([
   {
     product_id: products[2].id,
     status: :new,
-    price: 99.98
+    price: 99.98,
+    fulfiller_id: user.id
   }
 ])
 
