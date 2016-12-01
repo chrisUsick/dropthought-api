@@ -8,7 +8,8 @@ class OrdersController < ApplicationController
     end
     order = current_user.orders.create(product_id: product.id,
                                        price: product.price,
-                                       status: :new)
+                                       status: :new,
+                                       fulfiller_id: product.user.id)
     customization_prices = []
     customization_prices_params[:customizations].each do |c|
       next unless c['selected']
@@ -21,7 +22,20 @@ class OrdersController < ApplicationController
     render status: 200
   end
 
+  def update
+    order = Order.find(update_params[:id])
+    order.status = update_params[:status]
+    if order.save
+      render json: order
+        .as_json(include: [{customization_prices: {include: :customization}}, :product])
+    end
+  end
+
   private
+
+  def update_params
+    params.permit(:id, :status)
+  end
 
   def product_params
     params.require(:product).permit(:id, :price)

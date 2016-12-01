@@ -10,12 +10,16 @@ Rails.application.routes.draw do
     post '/products/:id' => 'product#update'
     delete '/products/:id' => 'product#delete'
     post '/products' => 'product#create'
+
+    # user
     get '/users/current/all' => 'user#all'
     post '/users/current/wishlist' => 'user#add_to_wishlist'
     get '/users/current/wishlist' => 'user#show_wishlist'
     get '/users/current/orders' => 'user#show_orders'
+    get '/users/current/orders_to_fulfil' => 'user#show_orders_to_fulfil'
 
     post '/orders' => 'orders#create'
+    post '/orders/update' => 'orders#update'
   end
 
   get '/test' => 'google_token_auth#test'

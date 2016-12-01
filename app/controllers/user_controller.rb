@@ -6,7 +6,7 @@ class UserController < ApplicationController
     render json: {
       user: current_user,
       products: current_user.products,
-      orders: current_user.orders_to_fulfil.as_json(include: :product)
+      orders: current_user.orders_to_fulfil.where(status: 'new').as_json(include: :product)
     }
   end
 
@@ -26,8 +26,14 @@ class UserController < ApplicationController
 
   def show_orders
     render json: current_user.orders
-      .includes([:customization_prices, :product])
-      .as_json(include: [:customization_prices, :product])
+      .includes([{customization_prices: :customization}, :product])
+      .as_json(include: [{customization_prices: {include: :customization}}, :product])
+  end
+
+  def show_orders_to_fulfil
+    render json: current_user.orders_to_fulfil
+      .includes([{customization_prices: :customization}, :product])
+      .as_json(include: [{customization_prices: {include: :customization}}, :product])
   end
 
   private

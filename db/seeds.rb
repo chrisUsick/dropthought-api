@@ -50,7 +50,15 @@ user.orders.create([
 
 order = user.orders.create(product_id: products[0].id,
                            status: :complete,
-                           price: 80.99)
+                           price: 80.99,
+                           fulfiller_id: user.id)
+
+user.orders.create({
+  product_id: products[1].id,
+  status: :verified,
+  price: 151.23,
+  fulfiller_id: user.id
+  })
 
 order.customization_prices.create(customization_id: products[0].customizations.first.id,
                                   price: 22.10)
