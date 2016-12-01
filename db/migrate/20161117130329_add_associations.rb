@@ -1,7 +1,7 @@
 class AddAssociations < ActiveRecord::Migration[5.0]
   def change
-    add_reference :customizations, :product
-    add_foreign_key :customizations, :product
+    add_reference :customizations, :product, foreign_key: true
+    # add_foreign_key :customizations, :products
 
     create_table :product_tags, id: false do |t|
       t.belongs_to :product, index: true

@@ -1,5 +1,5 @@
 class AddUserProductAssociation < ActiveRecord::Migration[5.0]
   def change
-    add_foreign_key :products, :users
+    add_reference :products, :user, foreign_key: true
   end
 end

@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# to deploy
+```
+docker-compose up -d db
+docker-compose build web
+docker-compose run -e WEB_CLIENT_ID=<web client id> web
+```
+In `dropthought-site`
+```
+docker build -t dropthrought-site .
+```
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Back in this `dropthought-api`
+```
+docker-compose up -d site
+```

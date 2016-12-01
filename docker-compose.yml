@@ -1,0 +1,23 @@
+version: '2'
+services:
+  db:
+    image: postgres
+  web:
+    build: .
+    # image: dropthoughtapi_web:latest
+    environment:
+      - RAILS_ENV=production
+      - DEVISE_SECRET=f30ab11f149840d7c1f2d12064dee6b35504a14584184e9ed74f70c82d3b60dbd413f9f16a4485519d4fe7cdbec9a078a18ec9c56c8f8bca8eaca2db98fd363b
+      - SECRET_KEY_BASE=f30ab11f149840d7c1f2d12064dee6b35504a14584184e9ed74f70c82d3b60dbd413f9f16a4485519d4fe7cdbec9a078a18ec9c56c8f8bca8eaca2db98fd363b
+    privileged: true
+    # command: /myapp/build-run.sh
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+  site:
+    image: dropthought-site
+    ports:
+       - "80:80"
+    depends_on:
+      - web
