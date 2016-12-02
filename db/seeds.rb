@@ -7,22 +7,22 @@ products = user.products.create([
     {
       name: 'Tiny Home on Wheels',
       description: "A house mounted on a 15' trailer.",
-      price: 99.98,
+      price: 9998,
       image: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
     }, {
       name: 'Shipping container home',
       description: 'A house made from shipping containers',
-      price: 74.99,
+      price: 7499,
       image: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=350&h=150'
     }, {
       name: 'Offroad gokart',
       description: 'a simple gokart design with a wide wheel-base and 15" clearance',
-      price: 99.98,
+      price: 9998,
       image: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=300&h=150'
     }, {
       name: 'Gokart from lawnmower moter',
       description: 'A gokart made with a lawnmower moter',
-      price: 99.98,
+      price: 9998,
       image: 'https://placeholdit.imgix.net/~text?txtsize=33&txt=350%C3%97150&w=300&h=150'
     }
 ])
@@ -33,7 +33,7 @@ gokart_tag = products[2].tags.create(name: 'Vehicles', slug: 'vehicles')
 gokart_tag.products << products[3]
 
 products[0].customizations.create(
-  name: 'Skylight', description: 'Add a skylight over the bed.', price: 25.00
+  name: 'Skylight', description: 'Add a skylight over the bed.', price: 2500
 )
 
 products[0].wishers << user
@@ -43,22 +43,22 @@ user.orders.create([
   {
     product_id: products[2].id,
     status: :new,
-    price: 99.98,
+    price: 9998,
     fulfiller_id: user.id
   }
 ])
 
 order = user.orders.create(product_id: products[0].id,
                            status: :complete,
-                           price: 80.99,
+                           price: 8099,
                            fulfiller_id: user.id)
 
 user.orders.create({
   product_id: products[1].id,
   status: :verified,
-  price: 151.23,
+  price: 15123,
   fulfiller_id: user.id
   })
 
 order.customization_prices.create(customization_id: products[0].customizations.first.id,
-                                  price: 22.10)
+                                  price: 2210)
