@@ -7,7 +7,6 @@ class OrdersController < ApplicationController
       current_user.wishlist_products.delete(product)
     end
     order = current_user.orders.create(product_id: product.id,
-                                       price: product.price,
                                        status: :new,
                                        fulfiller_id: product.user.id)
     customization_prices = []
@@ -19,7 +18,18 @@ class OrdersController < ApplicationController
       })
     end
     order.customization_prices.create(customization_prices)
+    price = product.price
+    price += customization_prices.inject(0) {|out, c| out += c[:price]; out}
+    order.price = price
+    order.save
+    create_charge order, params[:token]
     render status: 200
+  rescue Stripe::CardError => e
+    render status: 400, json: {
+      error: {
+        message: e.message
+      }
+    }
   end
 
   def update
@@ -43,5 +53,20 @@ class OrdersController < ApplicationController
 
   def customization_prices_params
     params.permit(customizations: [:selected, :id, :price])
+  end
+
+  def create_charge(order, token)
+    customer = Stripe::Customer.create(
+      email: current_user.email,
+      source: token,
+      description: "customer for #{current_user.email}; uid: #{current_user.uid}"
+    )
+
+    charge = Stripe::Charge.create(
+      customer: customer.id,
+      amount: order.price,
+      description: "purchase of #{order.product.name}; by #{customer.email}",
+      currency: 'cad'
+    )
   end
 end

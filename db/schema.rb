@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161130222426) do
+ActiveRecord::Schema.define(version: 20161202023244) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20161130222426) do
   create_table "customization_prices", force: :cascade do |t|
     t.integer  "order_id"
     t.integer  "customization_id"
-    t.decimal  "price"
+    t.integer  "price"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.index ["customization_id"], name: "index_customization_prices_on_customization_id", using: :btree
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20161130222426) do
   create_table "customizations", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.decimal  "price"
+    t.integer  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "product_id"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20161130222426) do
   end
 
   create_table "orders", force: :cascade do |t|
-    t.decimal  "price"
+    t.integer  "price"
     t.string   "status"
     t.integer  "product_id"
     t.datetime "created_at",   null: false
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 20161130222426) do
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.decimal  "price"
+    t.integer  "price"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "image"
