@@ -29,7 +29,7 @@ class ProductController < ApplicationController
 
   def show
     id = params[:id]
-    render json: Product.find(id)
+    render json: Product.includes(:tags).find(id).as_json(include: :tags)
   end
 
   def create
@@ -38,8 +38,15 @@ class ProductController < ApplicationController
 
   def update
     attributes = product_params
+    p attributes
+    attributes[:tags_attributes] = attributes.delete :tags
     id = params[:id]
     product = Product.find id
+    # attributes[:tags].each do |t|
+    #   unless t['created_at']
+    #     product.tags.build(t)
+    #   end
+    # end
     if product.update attributes
       render status: 200
     else
@@ -55,6 +62,6 @@ class ProductController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:description, :name, :price, :customizations)
+    params.permit(:description, :name, :price, customizations: [], tags: [:id, :name, :slug, :_destroy])
   end
 end
