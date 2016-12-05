@@ -4,7 +4,7 @@
 ```
 docker-compose up -d db
 docker-compose build web
-docker-compose run -e WEB_CLIENT_ID=<web client id> web
+WEB_CLIENT_ID=<web client id> STRIPE_PUBLISHABLE_KEY=<stripe public key> STRIPE_SECRET_KEY=<stipe secret key> docker-compose up -d web
 ```
 In `dropthought-site`
 ```
