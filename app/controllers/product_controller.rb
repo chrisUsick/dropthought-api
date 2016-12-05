@@ -29,7 +29,9 @@ class ProductController < ApplicationController
 
   def show
     id = params[:id]
-    render json: Product.includes(:tags).find(id).as_json(include: :tags)
+    render json: Product
+      .includes(:customizations, :tags)
+      .find(id).as_json(include: [:customizations, :tags])
   end
 
   def create
@@ -59,9 +61,15 @@ class ProductController < ApplicationController
     Product.find(id).delete
   end
 
+  def popular
+    render json: Product.limit(3)
+  end
+
   private
 
   def product_params
     params.permit(:description, :name, :price, customizations: [], tags: [:id, :name, :slug, :_destroy])
   end
+
+
 end

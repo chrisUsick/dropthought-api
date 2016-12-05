@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     # options '/auth/google' => 'google_token_auth#auth'
     post '/auth/google' => 'google_token_auth#auth'
     get '/products' => 'product#index'
+    get '/products/popular' => 'product#popular'
     get '/products/search' => 'product#search'
     get '/products/:id' => 'product#show'
     post '/products/:id' => 'product#update'
